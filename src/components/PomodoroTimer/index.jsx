@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { formatTime } from '../../helpers/helpers.js';
-
-import Break from '../Break/index.jsx';
-import ControlPanel from '../ControlPanel/index.jsx';
-import Session from '../Session/index.jsx';
+import PropTypes from 'prop-types';
 import Timer from '../Timer/index.jsx';
+import ControlPanel from '../ControlPanel/index.jsx';
+import { formatTime } from '../../helpers/helpers.js';
+import Session from '../Session/index.jsx';
+import Break from '../Break/index.jsx';
 
 function PomodoroTimer(props) {
   const [timeLeft, setTimeLeft] = useState(60);
@@ -13,6 +13,9 @@ function PomodoroTimer(props) {
   const [breakLength, setBreakLength] = useState(1);
   const [started, setStarted] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
+
+  const myAudio = useRef();
+  const context = new AudioContext();
 
   useEffect(() => {
     const handleSwitch = () => {
@@ -37,19 +40,20 @@ function PomodoroTimer(props) {
           setTimeLeft(timeLeft - 1);
         }, 1000)
       );
-
+      myAudio.current.play();
       handleSwitch();
     } else {
       clearInterval(intervalId);
     }
     return () => clearInterval(intervalId);
-  }, [started, timeLeft, timeType, breakLength, sessionLength]);
+  }, [started, timeLeft, timeType, breakLength, sessionLength, myAudio]);
 
   const handleOnStop = () => {
     setStarted(false);
   };
 
   const handleOnStart = () => {
+    context.resume();
     setStarted(true);
   };
 
@@ -59,6 +63,8 @@ function PomodoroTimer(props) {
     setTimeLeft(25 * 60);
     setTimeType('Session');
     setStarted(false);
+    myAudio.current.pause();
+    myAudio.current.currentTime = 0;
   };
 
   const incrementSession = () => {
@@ -104,6 +110,12 @@ function PomodoroTimer(props) {
         onStop={handleOnStop}
         onStart={handleOnStart}
         onReset={handleOnReset}
+      />
+      <audio
+        ref={myAudio}
+        className="audio"
+        preload="auto"
+        src="https://freesound.org/data/previews/411/411482_2154914-lq.mp3"
       />
     </div>
   );
