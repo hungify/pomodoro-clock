@@ -1,7 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import Session from '../Session/index.jsx';
-import Break from '../Break/index.jsx';
+import React from 'react';
 
 ControlPanel.propTypes = {
   started: PropTypes.bool,
