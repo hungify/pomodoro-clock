@@ -9,23 +9,26 @@ import Break from '../Break/index.jsx';
 function PomodoroTimer(props) {
   const [timeLeft, setTimeLeft] = useState(5);
   const [timeType, setTimeType] = useState('Session');
-  const [sessionLength, setSessionLength] = useState(2);
-  const [breakLength, setBreakLength] = useState(1);
+  const [sessionLength, setSessionLength] = useState(5);
+  const [breakLength, setBreakLength] = useState(3);
   const [started, setStarted] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
+  const [ringTime, setRingTime] = useState(5);
+  const [ringProgressPercentage, setRingProgressPercentage] = useState(1);
 
   const myAudio = useRef();
   const context = new AudioContext();
 
   useEffect(() => {
-    console.log('useEffect', timeLeft);
     const handleSwitch = () => {
       if (timeType === 'Session') {
         setTimeType('Break');
-        setTimeLeft(breakLength * 5);
+        setRingTime(breakLength * 60);
+        setTimeLeft(breakLength * 1);
       } else if (timeType === 'Break') {
         setTimeType('Session');
-        setTimeLeft(sessionLength * 5);
+        setRingTime(sessionLength * 60);
+        setTimeLeft(sessionLength * 1);
       }
     };
 
@@ -36,13 +39,14 @@ function PomodoroTimer(props) {
         }, 1000)
       );
     } else if (started && timeLeft === 0) {
+      // myAudio.current.load();
       myAudio.current.play();
       handleSwitch();
     } else {
       clearInterval(intervalId);
     }
     return () => clearInterval(intervalId);
-  }, [started, timeLeft, timeType, breakLength, sessionLength, myAudio]);
+  }, [started, timeLeft]);
 
   const handleOnStop = () => {
     setStarted(false);
@@ -57,10 +61,18 @@ function PomodoroTimer(props) {
     setSessionLength(25);
     setBreakLength(5);
     setTimeLeft(25 * 60);
+    setRingTime(25 * 60);
+    setRingProgressPercentage(1);
     setTimeType('Session');
+
     setStarted(false);
     myAudio.current.pause();
     myAudio.current.currentTime = 0;
+  };
+
+  const ringProgress = () => {
+    const percentage = timeLeft / ringTime;
+    setRingProgressPercentage(percentage);
   };
 
   const incrementSession = () => {
@@ -86,11 +98,11 @@ function PomodoroTimer(props) {
     }
   };
 
-  const timeLeftCurrent = formatTime(timeLeft);
+
 
   return (
     <div className="pomodoro">
-      <Timer timerType={timeType} timeLeftCurrent={timeLeftCurrent} />
+      <Timer timerType={timeType} timeLeft={timeLeft} ringProgress={ringProgressPercentage} />
       <Session
         sessionLength={sessionLength}
         incrementSession={incrementSession}
