@@ -7,9 +7,9 @@ import Session from '../Session/index.jsx';
 import Break from '../Break/index.jsx';
 
 function PomodoroTimer(props) {
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(5);
   const [timeType, setTimeType] = useState('Session');
-  const [sessionLength, setSessionLength] = useState(1);
+  const [sessionLength, setSessionLength] = useState(2);
   const [breakLength, setBreakLength] = useState(1);
   const [started, setStarted] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
@@ -18,13 +18,14 @@ function PomodoroTimer(props) {
   const context = new AudioContext();
 
   useEffect(() => {
+    console.log('useEffect', timeLeft);
     const handleSwitch = () => {
       if (timeType === 'Session') {
         setTimeType('Break');
-        setTimeLeft(breakLength * 60);
+        setTimeLeft(breakLength * 5);
       } else if (timeType === 'Break') {
         setTimeType('Session');
-        setTimeLeft(sessionLength * 60);
+        setTimeLeft(sessionLength * 5);
       }
     };
 
@@ -35,11 +36,6 @@ function PomodoroTimer(props) {
         }, 1000)
       );
     } else if (started && timeLeft === 0) {
-      setIntervalId(
-        setInterval(() => {
-          setTimeLeft(timeLeft - 1);
-        }, 1000)
-      );
       myAudio.current.play();
       handleSwitch();
     } else {
