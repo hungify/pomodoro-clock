@@ -1,5 +1,5 @@
-# Build-a-Clock-25+5 (Pomodoro timer)
+# Build-a-Pomodoro-Timer (Clock-25+5)
 
-- [Link to review]()
+- [Link to review](https://fcc-pomodoro.netlify.app/)
 
 - With the guidance of [freeCodeCamp](https://www.freecodecamp.org/)
