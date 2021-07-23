@@ -8,6 +8,8 @@ $textColor: #ededed;
   position: relative;
   font-family: $fontFace;
   &__progress-ring {
+    margin-top: 20px;
+
     .circle {
       transform: rotate(-90deg);
       transform-origin: 50% 50%;

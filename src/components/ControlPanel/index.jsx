@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Break from '../Break/index.jsx';
-import Session from '../Session/index.jsx';
 import './style.scss';
 
 ControlPanel.propTypes = {
@@ -14,8 +12,6 @@ ControlPanel.propTypes = {
 
 function ControlPanel(props) {
   const { started, onStop, onReset, onStart } = props;
-
-  console.log(started);
 
   return (
     <div className="control_panel">
