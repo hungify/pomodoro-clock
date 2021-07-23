@@ -1,0 +1,28 @@
+$btnColor: #0a1d37;
+
+.session {
+  width: 40%;
+
+  &__label,
+  &__name {
+    margin-bottom: 10px;
+    font-size: 25px;
+    font-weight: 600;
+    color: $btnColor;
+  }
+  &__control {
+    display: flex;
+    justify-content: space-evenly;
+    & .btn {
+      height: 50px;
+      width: 80px;
+      font-size: 35px;
+      &:active {
+        transform: translateY(6px);
+        box-shadow: none;
+      }
+    }
+  }
+  // &__name {
+  // }
+}

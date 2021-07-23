@@ -1,0 +1,47 @@
+@import '../../scss/variables.scss';
+
+$strokeColor: #da0037;
+$fillColor: #e99497;
+$textColor: #ededed;
+
+.time {
+  position: relative;
+  font-family: $fontFace;
+  &__progress-ring {
+    .circle {
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      stroke-dashoffset: 0;
+      transition: all 1s linear;
+
+      &__above {
+        stroke: $strokeColor;
+        fill: $fillColor;
+      }
+      &__below {
+        fill: transparent;
+        stroke: $strokeColor;
+      }
+    }
+  }
+  .text-center {
+    @include text-center;
+  }
+
+  &__inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    color: $textColor;
+    letter-spacing: 3px;
+    .time__label {
+      font-size: 20px;
+    }
+    .time__left {
+      font-size: 60px;
+      margin: 40px 0;
+    }
+  }
+}

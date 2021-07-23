@@ -1,5 +1,9 @@
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
+import Break from '../Break/index.jsx';
+import Session from '../Session/index.jsx';
+import './style.scss';
 
 ControlPanel.propTypes = {
   started: PropTypes.bool,
@@ -11,12 +15,17 @@ ControlPanel.propTypes = {
 function ControlPanel(props) {
   const { started, onStop, onReset, onStart } = props;
 
+  console.log(started);
+
   return (
     <div className="control_panel">
-      <button id="start_stop" onClick={started ? onStop : onStart}>
-        Start/Stop
+      <button
+        className={clsx('btn btn__stop btn__start', started && 'btn--active')}
+        onClick={started ? onStop : onStart}
+      >
+        {started ? 'Stop' : 'Start'}
       </button>
-      <button onClick={onReset} id="reset">
+      <button onClick={onReset} className="btn btn__reset">
         Reset
       </button>
     </div>

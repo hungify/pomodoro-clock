@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import Timer from '../Timer/index.jsx';
-import ControlPanel from '../ControlPanel/index.jsx';
-import { formatTime } from '../../helpers/helpers.js';
-import Session from '../Session/index.jsx';
 import Break from '../Break/index.jsx';
+import ControlPanel from '../ControlPanel/index.jsx';
+import Session from '../Session/index.jsx';
+import Timer from '../Timer/index.jsx';
+import './style.scss';
 
-function PomodoroTimer(props) {
+function PomodoroTimer() {
   const [timeLeft, setTimeLeft] = useState(5);
   const [timeType, setTimeType] = useState('Session');
-  const [sessionLength, setSessionLength] = useState(5);
-  const [breakLength, setBreakLength] = useState(3);
+  const [sessionLength, setSessionLength] = useState(60);
+  const [breakLength, setBreakLength] = useState(30);
   const [started, setStarted] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   const [ringTime, setRingTime] = useState(5);
   const [ringProgressPercentage, setRingProgressPercentage] = useState(1);
+  const [ringIntervalId, setRingIntervalId] = useState(null);
 
   const myAudio = useRef();
   const context = new AudioContext();
@@ -23,56 +23,62 @@ function PomodoroTimer(props) {
     const handleSwitch = () => {
       if (timeType === 'Session') {
         setTimeType('Break');
-        setRingTime(breakLength * 60);
+        setRingTime(breakLength * 1);
         setTimeLeft(breakLength * 1);
       } else if (timeType === 'Break') {
         setTimeType('Session');
-        setRingTime(sessionLength * 60);
+        setRingTime(sessionLength * 1);
         setTimeLeft(sessionLength * 1);
       }
     };
 
-    if (started && timeLeft > 0) {
+    if (started && timeLeft >= 0) {
+      setRingIntervalId(setInterval(ringProgress(timeLeft, ringTime), 1000));
       setIntervalId(
         setInterval(() => {
           setTimeLeft(timeLeft - 1);
         }, 1000)
       );
-    } else if (started && timeLeft === 0) {
+    } else if (started && timeLeft === -1) {
       // myAudio.current.load();
-      myAudio.current.play();
       handleSwitch();
+      myAudio.current.play();
     } else {
       clearInterval(intervalId);
+      clearInterval(ringIntervalId);
     }
-    return () => clearInterval(intervalId);
+    return () => {
+      clearInterval(intervalId);
+      clearInterval(ringIntervalId);
+    };
   }, [started, timeLeft]);
+
+  const ringProgress = (timeLeft, ringTime) => {
+    const percentage = timeLeft / ringTime;
+    console.log({ timeLeft, ringTime, percentage });
+    setRingProgressPercentage(timeLeft / ringTime);
+  };
 
   const handleOnStop = () => {
     setStarted(false);
   };
 
   const handleOnStart = () => {
-    context.resume();
     setStarted(true);
+    context.resume();
   };
 
   const handleOnReset = () => {
     setSessionLength(25);
     setBreakLength(5);
-    setTimeLeft(25 * 60);
-    setRingTime(25 * 60);
+    setTimeLeft(1 * 5);
+    setRingTime(1 * 5);
     setRingProgressPercentage(1);
     setTimeType('Session');
 
     setStarted(false);
     myAudio.current.pause();
     myAudio.current.currentTime = 0;
-  };
-
-  const ringProgress = () => {
-    const percentage = timeLeft / ringTime;
-    setRingProgressPercentage(percentage);
   };
 
   const incrementSession = () => {
@@ -98,32 +104,32 @@ function PomodoroTimer(props) {
     }
   };
 
-
-
   return (
     <div className="pomodoro">
-      <Timer timerType={timeType} timeLeft={timeLeft} ringProgress={ringProgressPercentage} />
-      <Session
-        sessionLength={sessionLength}
-        incrementSession={incrementSession}
-        decrementSession={decrementSession}
-      />
-      <Break
-        breakLength={breakLength}
-        incrementBreak={incrementBreak}
-        decrementBreak={decrementBreak}
-      />
+      <Timer timeType={timeType} timeLeft={timeLeft} ringProgress={ringProgressPercentage} />
       <ControlPanel
         started={started}
         onStop={handleOnStop}
         onStart={handleOnStart}
         onReset={handleOnReset}
       />
+      <div className="pomodoro__label">
+        <Session
+          sessionLength={sessionLength}
+          incrementSession={incrementSession}
+          decrementSession={decrementSession}
+        />
+        <Break
+          breakLength={breakLength}
+          incrementBreak={incrementBreak}
+          decrementBreak={decrementBreak}
+        />
+      </div>
+
       <audio
         ref={myAudio}
         className="audio"
-        preload="auto"
-        src="https://freesound.org/data/previews/411/411482_2154914-lq.mp3"
+        src="https://pomofocus.io/audios/alarms/alarm-bell.mp3"
       />
     </div>
   );

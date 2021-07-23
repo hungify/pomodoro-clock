@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './style.scss';
 
 Break.propTypes = {
   breakLength: PropTypes.number,
@@ -10,19 +11,15 @@ Break.propTypes = {
 function Break(props) {
   const { incrementBreak, decrementBreak, breakLength } = props;
   return (
-    <div className="break-container">
-      <h2 id="break-label">Break Length</h2>
+    <div className="break">
+      <p className="break__label">Break Length</p>
 
-      <div className="button-container">
-        <button id="break-increment" onClick={incrementBreak}>
+      <div className="break__control">
+        <button className="btn btn--active btn__increment" onClick={incrementBreak}>
           +
         </button>
-
-        <h2 id="break-length" style={{ margin: 0 }}>
-          {breakLength}
-        </h2>
-
-        <button id="break-decrement" onClick={decrementBreak}>
+        <p className="break__name">{breakLength}</p>
+        <button className="btn btn--active btn__decrement" onClick={decrementBreak}>
           -
         </button>
       </div>

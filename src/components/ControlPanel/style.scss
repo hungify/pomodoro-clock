@@ -1,0 +1,24 @@
+@import '../../scss/variables.scss';
+
+.control_panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  & .btn {
+    height: 52px;
+    width: 200px;
+    font-size: 35px;
+    &:active {
+      transform: translateY(6px);
+      box-shadow: none;
+    }
+    &--active {
+      transform: translateY(6px);
+      box-shadow: none !important;
+    }
+  }
+  // &__reset {
+
+  // }
+}

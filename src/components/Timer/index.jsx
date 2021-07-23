@@ -2,51 +2,49 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { circle } from '../../constants/index.js';
 import { formatTime } from '../../helpers/helpers.js';
+import './style.scss';
 
 Timer.propTypes = {
-  timerType: PropTypes.string,
+  timeType: PropTypes.string,
   timeLeftCurrent: PropTypes.string,
 };
 
 function Timer(props) {
-  const { timerType, timeLeft, ringProgress } = props;
-  const { radius, stroke } = circle;
+  const { timeType, timeLeft, ringProgress } = props;
+  const { radius, strokeWidth } = circle;
 
-  const normalizedRadius = radius - stroke * 2;
-  const circumference = normalizedRadius * 2 * Math.PI;
+  const actualRadius = radius - strokeWidth;
+  const circumference = actualRadius * 2 * Math.PI;
   const strokeDashoffset = -(1 - ringProgress) * circumference;
-  console.log(timeLeft);
+
   const timeLeftCurrent = formatTime(timeLeft);
+
   return (
-    <div className="timer-container">
-      <svg className="progress-ring" height="300" width="300">
+    <div className="time">
+      <svg className="time__progress-ring" height="300" width="300">
         <circle
-          //ANIMATED CIRCLE
-          className="progress-ring__circle"
-          stroke="red"
-          fill="transparent"
-          strokeWidth={stroke}
-          strokeDasharray={circumference + ' ' + circumference}
+          className="circle circle__above"
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference + circumference}
           style={{ strokeDashoffset }}
-          r={normalizedRadius}
+          r={actualRadius}
           cx={radius}
           cy={radius}
         />
-        {/* BACK CIRCLE WITH LOW OPACITY */}
+
         <circle
-          className="progress-ring__circle"
-          stroke="red"
+          className="circle circle__below"
           strokeOpacity="20%"
-          fill="transparent"
-          strokeWidth={stroke}
-          strokeDasharray={circumference + ' ' + circumference}
-          r={normalizedRadius}
+          strokeWidth={strokeWidth}
+          r={actualRadius}
           cx={radius}
           cy={radius}
         />
       </svg>
-      <h2 id="timer-label">{timerType}</h2>
-      <h3 id="time-left">{timeLeftCurrent}</h3>
+      <div className="time__inner">
+        <p className="time__label text-center">{timeType}</p>
+        <p className="time__left text-center">{timeLeftCurrent}</p>
+      </div>
     </div>
   );
 }

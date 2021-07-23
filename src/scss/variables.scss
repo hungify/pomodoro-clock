@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,700;1,400;1,500&display=swap');
+
+$fontFace: 'DM Sans', sans-serif;
+$fontRegular: 400;
+$btnColor: rgb(219, 82, 77);
+
+@mixin text-center {
+  text-align: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin btn {
+  margin: 20px 0px 0px;
+  padding: 0px 12px;
+  border-radius: 4px;
+
+  font-weight: bold;
+
+  color: $btnColor;
+  box-shadow: rgb(235 235 235) 0px 6px 0px;
+  background-color: white;
+
+  transition: color 0.5s ease-in-out 0s;
+  cursor: pointer;
+  border: none;
+}
