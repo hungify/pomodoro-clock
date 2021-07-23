@@ -23,6 +23,9 @@ $btnColor: #0a1d37;
         transform: translateY(6px);
         box-shadow: none;
       }
+      &.not-allowed {
+        cursor: not-allowed;
+      }
     }
   }
   // &__name {

@@ -5,8 +5,18 @@ $fillColor: #e99497;
 $textColor: #ededed;
 
 .time {
-  position: relative;
   font-family: $fontFace;
+  max-width: 480px;
+  margin: auto;
+
+  &__modal {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px 0px 30px;
+    border-radius: 6px;
+    position: relative;
+    transform: translateY(5%);
+    width: 100%;
+  }
   &__progress-ring {
     margin-top: 20px;
 

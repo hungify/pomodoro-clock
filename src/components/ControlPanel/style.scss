@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 20px;
   & .btn {
     height: 52px;
     width: 200px;
@@ -13,9 +13,9 @@
       transform: translateY(6px);
       box-shadow: none;
     }
-    &--active {
+    &.btn--active {
       transform: translateY(6px);
-      box-shadow: none !important;
+      box-shadow: none;
     }
     .icon {
       width: 40px;
