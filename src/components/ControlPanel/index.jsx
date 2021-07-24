@@ -20,7 +20,7 @@ function ControlPanel(props) {
       >
         {started ? 'Stop' : 'Start'}
       </button>
-      <button onClick={onReset} className="btn btn__reset">
+      <button onClick={onReset} className={`btn btn__reset ${!started && 'not-allowed'}`}>
         Reset
       </button>
     </div>
