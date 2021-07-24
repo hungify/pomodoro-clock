@@ -85,6 +85,7 @@ function PomodoroTimer() {
   };
 
   const handleOnReset = () => {
+    // if (started) {
     soundPress();
     const id = setTimeout(() => {
       stopSoundPress.stop();
@@ -102,6 +103,7 @@ function PomodoroTimer() {
 
     myAudio.current.pause();
     myAudio.current.currentTime = 0;
+    // }
   };
 
   const incrementSession = () => {
