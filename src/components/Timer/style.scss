@@ -1,6 +1,6 @@
 @import '../../scss/variables.scss';
 
-$strokeColor: #da0037;
+$strokeColor: #f44336;
 $fillColor: #e99497;
 $textColor: #ededed;
 
@@ -11,15 +11,15 @@ $textColor: #ededed;
 
   &__modal {
     background-color: rgba(255, 255, 255, 0.1);
-    padding: 20px 0px 30px;
+    padding: 15px 0px 15px;
     border-radius: 6px;
     position: relative;
-    transform: translateY(5%);
+    transform: translateY(3%);
     width: 100%;
   }
-  &__progress-ring {
-    margin-top: 20px;
 
+  &__progress-ring {
+    margin-top: 10px;
     .circle {
       transform: rotate(-90deg);
       transform-origin: 50% 50%;
@@ -48,12 +48,32 @@ $textColor: #ededed;
     text-transform: uppercase;
     color: $textColor;
     letter-spacing: 3px;
+
     .time__label {
       font-size: 20px;
     }
     .time__left {
-      font-size: 60px;
+      font-size: 65px;
       margin: 40px 0;
+      &:hover {
+        color: rgba(255, 255, 255, 0);
+        background: linear-gradient(
+          57deg,
+          #76e650 -1.13%,
+          #f9d649 15.22%,
+          #f08e35 32.09%,
+          #ec5157 48.96%,
+          #ff18bd 67.94%,
+          #1a4bff 85.34%,
+          #62d8f9 99.57%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+    }
+    .time__title {
+      text-transform: initial;
+      font-size: 20px;
     }
   }
 }
