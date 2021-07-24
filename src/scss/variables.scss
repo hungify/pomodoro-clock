@@ -29,3 +29,10 @@ $btnColor: rgb(219, 82, 77);
   cursor: grab;
   border: none;
 }
+
+@mixin not-allowed {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
