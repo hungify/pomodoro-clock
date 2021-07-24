@@ -8,7 +8,7 @@ export const circle = {
 };
 
 export const initialState = {
-  initTimeLeft: 1800,
+  initTimeLeft: 1500,
   initSessionLength: 25,
   initBreakLength: 5,
   initRingTime: 1800,
