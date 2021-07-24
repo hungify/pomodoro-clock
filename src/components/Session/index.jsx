@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { initialState } from '../../constants/index.js';
 import './style.scss';
-import clsx from 'clsx';
 
 Session.propTypes = {
   decrementSession: PropTypes.func,
@@ -18,14 +18,16 @@ function Session(props) {
       <p className="session__label">Session Length</p>
       <div className="session__control">
         <button
-          className={clsx('btn btn__increment', started && 'not-allowed')}
+          className={`btn btn__increment ${
+            (sessionLength === initialState.initSessionLength || started) && 'not-allowed'
+          }`}
           onClick={incrementSession}
         >
           +
         </button>
         <p className="session__name">{sessionLength}</p>
         <button
-          className={clsx('btn btn__decrement', started && 'not-allowed')}
+          className={`btn btn__decrement ${(sessionLength === 1 || started) && 'not-allowed'}`}
           onClick={decrementSession}
         >
           -

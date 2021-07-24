@@ -22,7 +22,7 @@ function Timer(props) {
   return (
     <div className="time">
       <div className="time__modal">
-        <svg className="time__progress-ring" height="300" width="300">
+        <svg className="time__progress-ring" height="365" width="365">
           <circle
             className="circle circle__above"
             strokeWidth={strokeWidth}
@@ -45,6 +45,9 @@ function Timer(props) {
         <div className="time__inner">
           <p className="time__label text-center">{timeType}</p>
           <p className="time__left text-center">{timeLeftCurrent}</p>
+          <p className="time__title text-center">
+            {timeType === 'Session' ? "It's time to work!" : 'Time for a break!'}
+          </p>
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 import './style.scss';
@@ -16,7 +15,7 @@ function ControlPanel(props) {
   return (
     <div className="control_panel">
       <button
-        className={clsx('btn btn__stop btn__start', started && 'btn--active')}
+        className={`btn btn__stop btn__start ${started && 'btn--active'}`}
         onClick={started ? onStop : onStart}
       >
         {started ? 'Stop' : 'Start'}

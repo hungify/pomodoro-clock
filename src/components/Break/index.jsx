@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
-import clsx from 'clsx';
+import { initialState } from '../../constants/index.js';
 
 Break.propTypes = {
   breakLength: PropTypes.number,
@@ -18,14 +18,16 @@ function Break(props) {
 
       <div className="break__control">
         <button
-          className={clsx('btn btn__increment', started && 'not-allowed')}
+          className={`btn btn__increment ${
+            (breakLength === initialState.initBreakLength || started) && 'not-allowed'
+          }`}
           onClick={incrementBreak}
         >
           +
         </button>
         <p className="break__name">{breakLength}</p>
         <button
-          className={clsx('btn btn__decrement', started && 'not-allowed')}
+          className={`btn btn__decrement ${(breakLength === 1 || started) && 'not-allowed'}`}
           onClick={decrementBreak}
         >
           -

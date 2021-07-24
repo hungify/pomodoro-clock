@@ -1,10 +1,10 @@
-import { Howl } from 'howler';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { initialState, sounds } from '../../constants/index.js';
 import Break from '../Break/index.jsx';
 import ControlPanel from '../ControlPanel/index.jsx';
 import Session from '../Session/index.jsx';
 import Timer from '../Timer/index.jsx';
+import useSound from 'use-sound';
 import './style.scss';
 const { initTimeLeft, initSessionLength, initBreakLength, initRingTime } = initialState;
 
@@ -22,44 +22,33 @@ function PomodoroTimer() {
   const myAudio = useRef();
   const context = new AudioContext();
 
-  const soundPress = new Howl({
-    src: [sounds.press],
-  });
+  const [soundPress, stopSoundPress] = useSound(sounds.press);
+  const [soundClick, stopSoundClick] = useSound(sounds.click);
+  const [soundTicking, stopSoundTicking] = useSound(sounds.ticking);
 
-  const soundTicking = new Howl({
-    src: [sounds.ticking],
-  });
+  const handleSwitch = () => {
+    if (timeType === 'Session') {
+      setTimeType('Break');
+      setRingTime(breakLength * 60);
+      setTimeLeft(breakLength * 60);
+    } else if (timeType === 'Break') {
+      setTimeType('Session');
+      setRingTime(sessionLength * 60);
+      setTimeLeft(sessionLength * 60);
+    }
+  };
 
-  const soundClick = new Howl({
-    src: [sounds.click],
-  });
-  let idSoundTicking;
   useEffect(() => {
-    const handleSwitch = () => {
-      if (timeType === 'Session') {
-        setTimeType('Break');
-        setRingTime(breakLength * 60);
-        setTimeLeft(breakLength * 60);
-      } else if (timeType === 'Break') {
-        setTimeType('Session');
-        setRingTime(sessionLength * 60);
-        setTimeLeft(sessionLength * 60);
-      }
-    };
-
     if (started && timeLeft >= 0) {
       setRingIntervalId(setInterval(ringProgress(timeLeft, ringTime), 1000));
       setIntervalId(
         setInterval(() => {
           setTimeLeft(() => {
             if (timeLeft <= 10) {
-              soundTicking.stop(idSoundTicking);
-              soundTicking.play();
-              idSoundTicking = soundTicking;
+              soundTicking();
             } else {
-              soundTicking.stop(idSoundTicking);
+              stopSoundTicking.stop();
             }
-
             return timeLeft - 1;
           });
         }, 1000)
@@ -82,24 +71,33 @@ function PomodoroTimer() {
   };
 
   const handleOnStop = () => {
-    soundPress.play();
     setStarted(false);
   };
 
   const handleOnStart = () => {
-    soundPress.play();
+    soundPress();
+    const id = setTimeout(() => {
+      stopSoundPress.stop();
+    }, 1000);
+    clearTimeout(id);
     setStarted(true);
     context.resume();
   };
 
   const handleOnReset = () => {
+    soundPress();
+    const id = setTimeout(() => {
+      stopSoundPress.stop();
+    }, 1000);
+    clearTimeout(id);
+
     setSessionLength(initSessionLength);
     setBreakLength(initBreakLength);
     setTimeLeft(initTimeLeft);
+
     setRingTime(initRingTime);
     setRingProgressPercentage(1);
     setTimeType('Session');
-
     setStarted(false);
 
     myAudio.current.pause();
@@ -108,7 +106,12 @@ function PomodoroTimer() {
 
   const incrementSession = () => {
     if (!started && sessionLength < 60) {
-      soundClick.play();
+      soundClick();
+      const id = setTimeout(() => {
+        stopSoundClick.stop();
+      }, 1000);
+      clearTimeout(id);
+
       setSessionLength(sessionLength + 1);
       setTimeLeft((sessionLength + 1) * 60);
       setRingTime((sessionLength + 1) * 60);
@@ -116,7 +119,12 @@ function PomodoroTimer() {
   };
   const decrementSession = () => {
     if (!started && sessionLength > 1) {
-      soundClick.play();
+      soundClick();
+      const id = setTimeout(() => {
+        stopSoundClick.stop();
+      }, 1000);
+      clearTimeout(id);
+
       setSessionLength(sessionLength - 1);
       setTimeLeft((sessionLength - 1) * 60);
       setRingTime((sessionLength - 1) * 60);
@@ -124,13 +132,22 @@ function PomodoroTimer() {
   };
   const incrementBreak = () => {
     if (!started && breakLength < 60) {
-      soundClick.play();
+      soundClick();
+
+      const id = setTimeout(() => {
+        stopSoundClick.stop();
+      }, 1000);
+      clearTimeout(id);
       setBreakLength(breakLength + 1);
     }
   };
   const decrementBreak = () => {
     if (!started && breakLength > 1) {
-      soundClick.play();
+      soundClick();
+      const id = setTimeout(() => {
+        soundClick.stop();
+      }, 1000);
+      clearTimeout(id);
       setBreakLength(breakLength - 1);
     }
   };
