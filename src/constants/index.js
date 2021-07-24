@@ -1,9 +1,9 @@
 import click from '../sounds/click-1114.wav';
 import press from '../sounds/button-press.wav';
-import ticking from '../sounds/ticking-fast.mp3';
+import ticking from '../sounds/ticking.mp3';
 
 export const circle = {
-  radius: 150,
+  radius: 180,
   strokeWidth: 5,
 };
 
