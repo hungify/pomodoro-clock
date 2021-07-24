@@ -17,12 +17,16 @@ $btnColor: #0a1d37;
       height: 50px;
       width: 80px;
       font-size: 35px;
+
       &:active {
         transform: translateY(6px);
         box-shadow: none;
       }
       &.not-allowed {
+        opacity: 0.3;
         cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
       }
     }
   }

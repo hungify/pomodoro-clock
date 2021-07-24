@@ -24,7 +24,10 @@ $btnColor: #0a1d37;
         box-shadow: none;
       }
       &.not-allowed {
+        opacity: 0.3;
         cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
       }
     }
   }
