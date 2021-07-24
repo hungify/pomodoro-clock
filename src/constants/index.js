@@ -11,7 +11,7 @@ export const initialState = {
   initTimeLeft: 1500,
   initSessionLength: 25,
   initBreakLength: 5,
-  initRingTime: 1800,
+  initRingTime: 1500,
 };
 
 export const sounds = {
