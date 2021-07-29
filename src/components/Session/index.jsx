@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { initialState } from '../../constants/index.js';
+
 import './style.scss';
 
 Session.propTypes = {
@@ -18,9 +18,7 @@ function Session(props) {
       <p className="session__label">Session Length</p>
       <div className="session__control">
         <button
-          className={`btn btn__increment ${
-            (sessionLength === initialState.initSessionLength || started) && 'not-allowed'
-          }`}
+          className={`btn btn__increment ${started && 'not-allowed'}`}
           onClick={incrementSession}
         >
           +

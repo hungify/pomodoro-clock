@@ -71,7 +71,7 @@ function PomodoroTimer() {
   };
 
   const handleOnStop = () => {
-    setStarted(false);
+    if (started) setStarted(false);
   };
 
   const handleOnStart = () => {
@@ -85,29 +85,29 @@ function PomodoroTimer() {
   };
 
   const handleOnReset = () => {
-    // if (started) {
-    soundPress();
-    const id = setTimeout(() => {
-      stopSoundPress.stop();
-    }, 1000);
-    clearTimeout(id);
+    if (started) {
+      soundPress();
+      const id = setTimeout(() => {
+        stopSoundPress.stop();
+      }, 1000);
+      clearTimeout(id);
 
-    setSessionLength(initSessionLength);
-    setBreakLength(initBreakLength);
-    setTimeLeft(initTimeLeft);
+      setSessionLength(initSessionLength);
+      setBreakLength(initBreakLength);
+      setTimeLeft(initTimeLeft);
 
-    setRingTime(initRingTime);
-    setRingProgressPercentage(1);
-    setTimeType('Session');
-    setStarted(false);
+      setRingTime(initRingTime);
+      setRingProgressPercentage(1);
+      setTimeType('Session');
+      setStarted(false);
 
-    myAudio.current.pause();
-    myAudio.current.currentTime = 0;
-    // }
+      myAudio.current.pause();
+      myAudio.current.currentTime = 0;
+    }
   };
 
   const incrementSession = () => {
-    if (!started && sessionLength < 60) {
+    if (!started) {
       soundClick();
       const id = setTimeout(() => {
         stopSoundClick.stop();
@@ -133,7 +133,7 @@ function PomodoroTimer() {
     }
   };
   const incrementBreak = () => {
-    if (!started && breakLength < 60) {
+    if (!started) {
       soundClick();
 
       const id = setTimeout(() => {

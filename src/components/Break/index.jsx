@@ -18,9 +18,7 @@ function Break(props) {
 
       <div className="break__control">
         <button
-          className={`btn btn__increment ${
-            (breakLength === initialState.initBreakLength || started) && 'not-allowed'
-          }`}
+          className={`btn btn__increment ${started && 'not-allowed'}`}
           onClick={incrementBreak}
         >
           +
