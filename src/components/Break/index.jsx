@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
-import { initialState } from '../../constants/index.js';
 
 Break.propTypes = {
   breakLength: PropTypes.number,
