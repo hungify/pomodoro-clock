@@ -1,0 +1,38 @@
+@import '../../scss/variables.scss';
+
+.control_panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  & .btn {
+    height: 52px;
+    width: 200px;
+    font-size: 35px;
+
+    &:active {
+      transform: translateY(6px);
+      box-shadow: none;
+    }
+
+    &.btn--active {
+      transform: translateY(6px);
+      box-shadow: none;
+    }
+
+    &__reset {
+      &.not-allowed {
+        @include not-allowed;
+      }
+    }
+
+    .icon {
+      width: 40px;
+      object-fit: 100%;
+      height: 40px;
+
+      // &__play {
+      // }
+    }
+  }
+}

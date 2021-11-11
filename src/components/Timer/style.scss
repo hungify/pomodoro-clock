@@ -1,0 +1,98 @@
+@import '../../scss/variables.scss';
+
+$strokeColor: #e94057;
+$fillColor: #e99497;
+$textColor: #ededed;
+
+.time {
+  font-family: $fontFace;
+  max-width: 480px;
+  margin: auto;
+
+  &__modal {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px 0px 15px;
+    border-radius: 6px;
+    position: relative;
+    transform: translateY(3%);
+    width: 100%;
+  }
+
+  &__progress-ring {
+    margin-top: 10px;
+    .circle {
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      stroke-dashoffset: 0;
+      transition: all 1s linear;
+
+      &__above {
+        stroke: $strokeColor;
+        fill: $fillColor;
+      }
+      &__below {
+        fill: transparent;
+        stroke: $strokeColor;
+      }
+    }
+  }
+  .text-center {
+    @include text-center;
+  }
+
+  &__inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    color: $textColor;
+    letter-spacing: 3px;
+
+    .time__label {
+      font-size: 19px;
+    }
+    .time__left {
+      font-size: 65px;
+      margin: 40px 0;
+      &:hover {
+        background: linear-gradient(
+          57deg,
+          #76e650 -1.13%,
+          #f9d649 15.22%,
+          #f08e35 32.09%,
+          #ec5157 48.96%,
+          #ff18bd 67.94%,
+          #1a4bff 85.34%,
+          #62d8f9 99.57%
+        );
+        color: rgba(255, 255, 255, 0);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+    }
+    .time__title {
+      text-transform: initial;
+      font-size: 22px;
+      margin: 0;
+
+      background: #12c2e9; /* fallback for old browsers */
+      background: -webkit-linear-gradient(
+        to left,
+        #f64f59,
+        #c471ed,
+        #12c2e9
+      ); /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(
+        to left,
+        #f64f59,
+        #c471ed,
+        #12c2e9
+      ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      color: rgba(255, 255, 255, 0);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import '../../scss/variables.scss';
+
+.pomodoro {
+  background: rgb(238, 174, 202);
+  background: radial-gradient(circle, rgba(238, 174, 202, 1) 16%, rgba(148, 187, 233, 1) 100%);
+  height: 100vh;
+  &__label {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .btn {
+    @include btn;
+  }
+}
