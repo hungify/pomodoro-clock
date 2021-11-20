@@ -1,25 +1,25 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { initialState, sounds } from '../../constants/index.js';
-import Break from '../Break/index.jsx';
-import ControlPanel from '../ControlPanel/index.jsx';
-import Session from '../Session/index.jsx';
-import Timer from '../Timer/index.jsx';
-import useSound from 'use-sound';
-import './style.scss';
+import React, { useEffect, useRef, useState } from "react";
+import { initialState, sounds, TimeType } from "../../constants";
+import Break from "../Break";
+import ControlPanel from "../ControlPanel";
+import Session from "../Session";
+import Timer from "../Timer";
+import useSound from "use-sound";
+import "./style.scss";
 const { initTimeLeft, initSessionLength, initBreakLength, initRingTime } = initialState;
 
 function PomodoroTimer() {
-  const [timeLeft, setTimeLeft] = useState(initTimeLeft);
-  const [timeType, setTimeType] = useState('Session');
-  const [sessionLength, setSessionLength] = useState(initSessionLength);
-  const [ringTime, setRingTime] = useState(initRingTime);
-  const [breakLength, setBreakLength] = useState(initBreakLength);
-  const [started, setStarted] = useState(false);
-  const [intervalId, setIntervalId] = useState(null);
-  const [ringProgressPercentage, setRingProgressPercentage] = useState(1);
-  const [ringIntervalId, setRingIntervalId] = useState(null);
+  const [timeLeft, setTimeLeft] = useState<number>(initTimeLeft);
+  const [timeType, setTimeType] = useState<TimeType>(TimeType.SESSION);
+  const [sessionLength, setSessionLength] = useState<number>(initSessionLength);
+  const [ringTime, setRingTime] = useState<number>(initRingTime);
+  const [breakLength, setBreakLength] = useState<number>(initBreakLength);
+  const [started, setStarted] = useState<boolean>(false);
+  const [intervalId, setIntervalId] = useState<number>();
+  const [ringProgressPercentage, setRingProgressPercentage] = useState<number>(1);
+  const [ringIntervalId, setRingIntervalId] = useState<number>();
 
-  const myAudio = useRef();
+  const myAudio = useRef<HTMLAudioElement>() as React.MutableRefObject<HTMLAudioElement>;
   const context = new AudioContext();
 
   const [soundPress, stopSoundPress] = useSound(sounds.press);
@@ -27,12 +27,12 @@ function PomodoroTimer() {
   const [soundTicking, stopSoundTicking] = useSound(sounds.ticking);
 
   const handleSwitch = () => {
-    if (timeType === 'Session') {
-      setTimeType('Break');
+    if (timeType === TimeType.SESSION) {
+      setTimeType(TimeType.BREAK);
       setRingTime(breakLength * 60);
       setTimeLeft(breakLength * 60);
-    } else if (timeType === 'Break') {
-      setTimeType('Session');
+    } else if (timeType === TimeType.BREAK) {
+      setTimeType(TimeType.SESSION);
       setRingTime(sessionLength * 60);
       setTimeLeft(sessionLength * 60);
     }
@@ -40,9 +40,9 @@ function PomodoroTimer() {
 
   useEffect(() => {
     if (started && timeLeft >= 0) {
-      setRingIntervalId(setInterval(ringProgress(timeLeft, ringTime), 1000));
+      setRingIntervalId(window.setInterval(() => ringProgress(timeLeft, ringTime), 1000));
       setIntervalId(
-        setInterval(() => {
+        window.setInterval(() => {
           setTimeLeft(() => {
             if (timeLeft <= 10) {
               soundTicking();
@@ -57,16 +57,16 @@ function PomodoroTimer() {
       handleSwitch();
       myAudio.current.play();
     } else {
-      clearInterval(intervalId);
-      clearInterval(ringIntervalId);
+      window.clearInterval(intervalId);
+      window.clearInterval(ringIntervalId);
     }
     return () => {
-      clearInterval(intervalId);
-      clearInterval(ringIntervalId);
+      window.clearInterval(intervalId);
+      window.clearInterval(ringIntervalId);
     };
   }, [started, timeLeft]);
 
-  const ringProgress = (timeLeft, ringTime) => {
+  const ringProgress = (timeLeft: number, ringTime: number) => {
     setRingProgressPercentage(timeLeft / ringTime);
   };
 
@@ -98,7 +98,7 @@ function PomodoroTimer() {
 
       setRingTime(initRingTime);
       setRingProgressPercentage(1);
-      setTimeType('Session');
+      setTimeType(TimeType.SESSION);
       setStarted(false);
 
       myAudio.current.pause();
@@ -119,6 +119,7 @@ function PomodoroTimer() {
       setRingTime((sessionLength + 1) * 60);
     }
   };
+
   const decrementSession = () => {
     if (!started && sessionLength > 1) {
       soundClick();
@@ -132,6 +133,7 @@ function PomodoroTimer() {
       setRingTime((sessionLength - 1) * 60);
     }
   };
+
   const incrementBreak = () => {
     if (!started) {
       soundClick();
@@ -143,11 +145,12 @@ function PomodoroTimer() {
       setBreakLength(breakLength + 1);
     }
   };
+
   const decrementBreak = () => {
     if (!started && breakLength > 1) {
       soundClick();
       const id = setTimeout(() => {
-        soundClick.stop();
+        stopSoundClick.stop();
       }, 1000);
       clearTimeout(id);
       setBreakLength(breakLength - 1);
@@ -156,7 +159,11 @@ function PomodoroTimer() {
 
   return (
     <div className="pomodoro">
-      <Timer timeType={timeType} timeLeft={timeLeft} ringProgress={ringProgressPercentage} />
+      <Timer
+        timeType={timeType}
+        timeLeft={timeLeft}
+        ringProgress={ringProgressPercentage}
+      />
       <ControlPanel
         started={started}
         onStop={handleOnStop}

@@ -10,10 +10,10 @@ Session.propTypes = {
 };
 
 interface SessionProps {
-  decrementSession: void;
-  incrementSession: void;
-  sessionLength: Number;
-  started: Boolean;
+  decrementSession: () => void;
+  incrementSession: () => void;
+  sessionLength: number;
+  started: boolean;
 }
 
 function Session(props: SessionProps) {

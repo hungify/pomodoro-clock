@@ -2,10 +2,10 @@ import React from "react";
 import "./style.scss";
 
 interface BreakProps {
-  breakLength: Number;
-  decrementBreak: void;
-  incrementBreak: void;
-  started: Boolean;
+  breakLength: number;
+  decrementBreak: () => void;
+  incrementBreak: () => void;
+  started: boolean;
 }
 
 function Break(props: BreakProps) {

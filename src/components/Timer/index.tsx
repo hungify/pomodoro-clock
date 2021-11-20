@@ -1,10 +1,10 @@
-import { circle } from "../../constants/index.js";
-import { formatTime } from "../../helpers/helpers.js";
+import { circle, TimeType } from "../../constants";
+import { formatTime } from "../../helpers/helpers";
 import CircleIcon from "../Icons/Circle";
 import "./style.scss";
 
 type timerProps = {
-  timeType: string;
+  timeType: TimeType;
   timeLeft: number;
   ringProgress: number;
 };
@@ -31,12 +31,10 @@ function Timer({ timeType, timeLeft, ringProgress }: timerProps) {
           strokeWidth={strokeWidth}
         />
         <div className="time__inner">
-          <p className="time__label text-center">{timeType}</p>
+          <p className="time__label text-center">{TimeType[timeType]}</p>
           <p className="time__left text-center">{timeLeftCurrent}</p>
           <p className="time__title text-center">
-            {timeType === "Session"
-              ? "It's time to work!"
-              : "Time for a break!"}
+            {timeType === TimeType.SESSION ? "It's time to work!" : "Time for a break!"}
           </p>
         </div>
       </div>

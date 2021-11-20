@@ -1,7 +1,3 @@
-// type formatTimeType = {
-//   (time: string): string,
-// };
-
 export const formatTime = (timeLeft: number) => {
   let minutes: number | string = Math.floor(timeLeft / 60);
   let seconds: number | string = timeLeft % 60;

@@ -3,10 +3,11 @@ import "./style.scss";
 
 interface ControlPanelProps {
   started: Boolean;
-  onStop: void;
-  onStart: void;
-  onReset: void;
+  onStop: () => void;
+  onStart: () => void;
+  onReset: () => void;
 }
+
 function ControlPanel(props: ControlPanelProps) {
   const { started, onStop, onReset, onStart } = props;
 
@@ -18,10 +19,7 @@ function ControlPanel(props: ControlPanelProps) {
       >
         {started ? "Stop" : "Start"}
       </button>
-      <button
-        onClick={onReset}
-        className={`btn btn__reset ${!started && "not-allowed"}`}
-      >
+      <button onClick={onReset} className={`btn btn__reset ${!started && "not-allowed"}`}>
         Reset
       </button>
     </div>

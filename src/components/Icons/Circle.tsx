@@ -1,7 +1,3 @@
-import React from "react";
-
-CircleIcon.propTypes = {};
-
 interface CircleProps {
   strokeWidth: number;
   circumference: number;
@@ -28,7 +24,6 @@ function CircleIcon({
         cx={radius}
         cy={radius}
       />
-
       <circle
         className="circle circle__below"
         strokeOpacity="20%"

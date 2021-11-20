@@ -20,6 +20,11 @@ interface Sounds {
   ticking: string;
 }
 
+export enum TimeType {
+  SESSION,
+  BREAK,
+}
+
 const circle: Circle = {
   radius: 180,
   strokeWidth: 5,
@@ -33,8 +38,10 @@ const initialState: InitialState = {
 };
 
 const sounds: Sounds = {
-  click: click,
-  press: press,
-  ticking: ticking,
+  click,
+  press,
+  ticking,
 };
-export { Circle, circle, Sounds, sounds, InitialState, initialState };
+
+export type { Circle, Sounds, InitialState };
+export { circle, sounds, initialState };
