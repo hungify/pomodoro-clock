@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.15",
     "sass": "^1.43.4",
     "typescript-coverage-report": "^0.6.1",
     "use-sound": "^4.0.1"

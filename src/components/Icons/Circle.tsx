@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 interface CircleProps {
   strokeWidth: number;
   circumference: number;
@@ -14,9 +16,8 @@ function CircleIcon({
   radius,
 }: CircleProps) {
   return (
-    <svg className="time__progress-ring" height="365" width="365">
-      <circle
-        className="circle circle__above"
+    <SVGContainer height="365" width="365">
+      <CircleSurface
         strokeWidth={strokeWidth}
         strokeDasharray={circumference + circumference}
         style={{ strokeDashoffset }}
@@ -24,16 +25,42 @@ function CircleIcon({
         cx={radius}
         cy={radius}
       />
-      <circle
-        className="circle circle__below"
+      <CircleDownside
         strokeOpacity="20%"
         strokeWidth={strokeWidth}
         r={actualRadius}
         cx={radius}
         cy={radius}
       />
-    </svg>
+    </SVGContainer>
   );
 }
 
 export default CircleIcon;
+
+const ColorCircle = {
+  strokeColor: "#e94057",
+  fillColor: "#e99497",
+  textColor: "#ededed",
+};
+
+const SVGContainer = styled.svg`
+  margin-top: 10px;
+`;
+
+const Circle = styled.circle`
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  stroke-dashoffset: 0;
+  transition: all 1s linear;
+`;
+
+const CircleSurface = styled(Circle)`
+  stroke: ${ColorCircle.strokeColor};
+  fill: ${ColorCircle.fillColor};
+`;
+
+const CircleDownside = styled(Circle)`
+  fill: transparent;
+  stroke: ${ColorCircle.strokeColor};
+`;
