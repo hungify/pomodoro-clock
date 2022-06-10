@@ -16,7 +16,7 @@ function CircleIcon({
   radius,
 }: CircleProps) {
   return (
-    <SVGContainer height="365" width="365">
+    <SVGContainer>
       <CircleSurface
         strokeWidth={strokeWidth}
         strokeDasharray={circumference + circumference}
@@ -45,7 +45,8 @@ const ColorCircle = {
 };
 
 const SVGContainer = styled.svg`
-  margin-top: 10px;
+  height: 365px;
+  width: 365px;
 `;
 
 const Circle = styled.circle`

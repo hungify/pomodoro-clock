@@ -13,4 +13,7 @@ body {
 body {
   margin: 0;
 }
+p {
+  margin: 0;
+}
 `;

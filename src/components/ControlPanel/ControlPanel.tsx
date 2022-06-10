@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { mediaDevices } from "../../styles/styledConstants";
 import Button from "../Button";
 
 interface ControlPanelProps {
@@ -29,7 +30,7 @@ const ControlPanelContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 30px;
 `;
 
 const ButtonAction = styled(Button)`

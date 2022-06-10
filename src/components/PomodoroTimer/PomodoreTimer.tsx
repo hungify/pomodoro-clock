@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useSound from "use-sound";
 import { initialState, sounds, TimeType } from "../../constants";
+import { mediaDevices } from "../../styles/styledConstants";
 import Break from "../Break";
 import ControlPanel from "../ControlPanel";
 import Session from "../Session";
@@ -201,4 +202,8 @@ const PomodoroLabel = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  @media ${mediaDevices.mobileL} {
+    align-items: center;
+    flex-direction: column;
+  }
 `;

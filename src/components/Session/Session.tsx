@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { GlobalMixin } from "../../styles/mixin";
+import { mediaDevices } from "../../styles/styledConstants";
 import Button from "../Button";
 interface SessionProps {
   decrementSession: () => void;
@@ -29,19 +30,16 @@ function Session(props: SessionProps) {
 
 export default Session;
 
-const SessionMixin = css`
-  margin-bottom: 10px;
-  font-size: 25px;
-  font-weight: 600;
-  color: "#0a1d37";
-`;
-
 const SessionContainer = styled.div`
+  margin-top: 30px;
   width: 40%;
+  @media ${mediaDevices.mobileL} {
+    width: 100%;
+  }
 `;
 
-const SessionLabel = styled.p`
-  ${SessionMixin}
+const SessionLabel = styled.div`
+  ${GlobalMixin.labelName}
 `;
 
 const SessionConTrol = styled.div`
@@ -65,8 +63,8 @@ const ButtonIncrement = styled(Button)<INCRButton>`
     `}
 `;
 
-const SessionName = styled.p`
-  ${SessionMixin}
+const SessionName = styled.div`
+  ${GlobalMixin.labelName}
 `;
 
 interface DECRButton {

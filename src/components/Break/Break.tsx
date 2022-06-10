@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { GlobalMixin } from "../../styles/mixin";
+import { mediaDevices } from "../../styles/styledConstants";
 import Button from "../Button";
 
 interface BreakProps {
@@ -30,19 +31,16 @@ function Break(props: BreakProps) {
 
 export default Break;
 
-const BreakMixin = css`
-  margin-bottom: 10px;
-  font-size: 25px;
-  font-weight: 600;
-  color: "#0a1d37";
-`;
-
 const BreakContainer = styled.div`
+  margin-top: 30px;
   width: 40%;
+  @media ${mediaDevices.mobileL} {
+    width: 100%;
+  }
 `;
 
-const BreakLabel = styled.p`
-  ${BreakMixin}
+const BreakLabel = styled.div`
+  ${GlobalMixin.labelName}
 `;
 
 const BreakConTrol = styled.div`
@@ -67,8 +65,9 @@ const ButtonIncrement = styled(Button)<INCRButton>`
     `}
 `;
 
-const BreakName = styled.p`
-  ${BreakMixin}
+const BreakName = styled.div`
+  ${GlobalMixin.labelName}
+  ${GlobalMixin.labelName}
 `;
 
 interface DECRButton {

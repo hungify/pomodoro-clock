@@ -3,7 +3,7 @@ import { ColorConstants } from "./styledConstants";
 
 export const GlobalMixin = {
   button: css`
-    margin: 20px 0px 0px;
+    margin: 10px 0;
     padding: 0px 12px;
     border-radius: 4px;
     font-weight: bold;
@@ -15,5 +15,13 @@ export const GlobalMixin = {
     transition: color 0.5s ease-in-out 0s;
     cursor: grab;
     border: none;
+  `,
+  labelName: css`
+    font-size: 25px;
+    font-weight: 600;
+    color: #0a1d37;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   `,
 };
