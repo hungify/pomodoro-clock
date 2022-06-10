@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { GlobalMixin } from "../../styles/mixin";
+import Button from "../Button";
 
 interface BreakProps {
   breakLength: number;
@@ -19,11 +20,7 @@ function Break(props: BreakProps) {
           +
         </ButtonIncrement>
         <BreakName>{breakLength}</BreakName>
-        <ButtonDecrement
-          breakLength={breakLength}
-          started={started}
-          onClick={decrementBreak}
-        >
+        <ButtonDecrement breakLength={breakLength} started={started} onClick={decrementBreak}>
           -
         </ButtonDecrement>
       </BreakConTrol>
@@ -52,17 +49,6 @@ const BreakConTrol = styled.div`
   display: flex;
   justify-content: space-evenly;
   font-size: 25px;
-`;
-
-const Button = styled.button`
-  ${GlobalMixin.button};
-  height: 50px;
-  width: 80px;
-  font-size: 35px;
-  &:active {
-    transform: translateY(6px);
-    box-shadow: none;
-  }
 `;
 
 interface INCRButton {

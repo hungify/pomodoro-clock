@@ -41,10 +41,9 @@
   "devDependencies": {
     "@types/jest": "^28.1.1",
     "@types/node": "^17.0.41",
-    "@types/react": "^18.0.12",
-    "@types/react-dom": "^18.0.5",
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.2",
     "@types/styled-components": "^5.1.15",
-    "sass": "^1.43.4",
     "typescript-coverage-report": "^0.6.1",
     "use-sound": "^4.0.1"
   }

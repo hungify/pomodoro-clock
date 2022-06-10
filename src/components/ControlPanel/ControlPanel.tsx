@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { GlobalMixin } from "../../styles/mixin";
+import Button from "../Button";
 
 interface ControlPanelProps {
   started: boolean;
@@ -32,21 +32,8 @@ const ControlPanelContainer = styled.div`
   margin-top: 10px;
 `;
 
-interface BTN {
-  started: boolean;
-}
-const Button = styled.button<BTN>`
-  ${GlobalMixin.button};
-  height: 52px;
-  width: 200px;
-  font-size: 35px;
-  &:active {
-    transform: translateY(6px);
-    box-shadow: none;
-  }
-`;
-
 const ButtonAction = styled(Button)`
+  width: 200px;
   ${(props) =>
     props.started &&
     css`
@@ -56,6 +43,7 @@ const ButtonAction = styled(Button)`
 `;
 
 const ButtonReset = styled(Button)`
+  width: 200px;
   ${(props) =>
     props.started &&
     css`

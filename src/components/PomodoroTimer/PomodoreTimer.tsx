@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import useSound from "use-sound";
 import { initialState, sounds, TimeType } from "../../constants";
 import Break from "../Break";
 import ControlPanel from "../ControlPanel";
 import Session from "../Session";
 import Timer from "../Timer";
-import useSound from "use-sound";
-import styled from "styled-components";
 const { initTimeLeft, initSessionLength, initBreakLength, initRingTime } = initialState;
 
 function PomodoroTimer() {
@@ -158,11 +158,7 @@ function PomodoroTimer() {
 
   return (
     <PomodoroContainer>
-      <Timer
-        timeType={timeType}
-        timeLeft={timeLeft}
-        ringProgress={ringProgressPercentage}
-      />
+      <Timer timeType={timeType} timeLeft={timeLeft} ringProgress={ringProgressPercentage} />
       <ControlPanel
         started={started}
         onStop={handleOnStop}
@@ -197,11 +193,7 @@ export default PomodoroTimer;
 
 const PomodoroContainer = styled.div`
   background: rgb(238, 174, 202);
-  background: radial-gradient(
-    circle,
-    rgba(238, 174, 202, 1) 16%,
-    rgba(148, 187, 233, 1) 100%
-  );
+  background: radial-gradient(circle, rgba(238, 174, 202, 1) 16%, rgba(148, 187, 233, 1) 100%);
   height: 100vh;
 `;
 

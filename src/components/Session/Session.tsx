@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { GlobalMixin } from "../../styles/mixin";
+import Button from "../Button";
 interface SessionProps {
   decrementSession: () => void;
   incrementSession: () => void;
@@ -18,11 +19,7 @@ function Session(props: SessionProps) {
           +
         </ButtonIncrement>
         <SessionName>{sessionLength}</SessionName>
-        <ButtonDecrement
-          sessionLength={sessionLength}
-          started={started}
-          onClick={decrementSession}
-        >
+        <ButtonDecrement sessionLength={sessionLength} started={started} onClick={decrementSession}>
           -
         </ButtonDecrement>
       </SessionConTrol>
@@ -50,17 +47,6 @@ const SessionLabel = styled.p`
 const SessionConTrol = styled.div`
   display: flex;
   justify-content: space-evenly;
-`;
-
-const Button = styled.button`
-  ${GlobalMixin.button};
-  height: 50px;
-  width: 80px;
-  font-size: 35px;
-  &:active {
-    transform: translateY(6px);
-    box-shadow: none;
-  }
 `;
 
 interface INCRButton {
